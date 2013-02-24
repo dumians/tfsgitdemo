@@ -1,0 +1,362 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:vc="using:Visifire.Charts" 
+    xmlns:vg="using:Visifire.Gauges"
+	xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+	xmlns:Visifire_Dashboards_ProductAndSales="using:Visifire.Dashboards.ProductAndSales.Views"
+	mc:Ignorable="d"
+	x:Class="Visifire.Dashboards.ProductAndSales.Views.ProductWiseSalesView"
+	d:DesignWidth="1024" d:DesignHeight="635">
+    <Page.Resources>
+        <Storyboard x:Name="StoryboardArrowAnimation" BeginTime="0:0:5" >
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="path">
+				<DiscreteDoubleKeyFrame KeyTime="0" Value="320"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<CubicEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path">
+				<DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<CubicEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+				<EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.475"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="0.32"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+    </Page.Resources>
+
+	<Grid x:Name="LayoutRoot">
+		<Grid>
+			<Grid.RowDefinitions>
+                <RowDefinition Height="0.40*" />
+				<RowDefinition Height="0.60*"/>
+			</Grid.RowDefinitions>
+        	
+			<Grid Margin="0,0,0,4" Grid.Row="0" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="35"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.45*" />
+					<ColumnDefinition Width="0.55*"/>
+				</Grid.ColumnDefinitions>
+				<Border Grid.Row="0" Grid.ColumnSpan="2" Height="35">
+
+					<StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Selected Product: " Width="125" Foreground="#8c8c8c" VerticalAlignment="Center" Margin="14,0,0,0" FontSize="15.4">
+						</TextBlock>
+                        <TextBlock x:Name="tbSelectedProduct" Foreground="#8c8c8c" Text="{Binding SelectedProduct}" FontSize="15.4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="0,0,0,0">
+						</TextBlock>
+                        <TextBlock Text=" | Select Month: " Width="118" Foreground="#8c8c8c" VerticalAlignment="Center" FontSize="15.4">
+						</TextBlock>
+                        <ComboBox x:Name="DrpMonth" SelectedIndex ="{Binding DrpMonthSelectedIndex, Mode=TwoWay}" HorizontalAlignment="Left" Width="136" Grid.Row="1" Margin="0,6,0,7" Foreground="#8c8c8c" >
+                	<TextBlock ><Run Text="January"/></TextBlock>
+                	<TextBlock><Run Text="February"/></TextBlock>
+                	<TextBlock><Run Text="March"/></TextBlock>
+                	<TextBlock><Run Text="April"/></TextBlock>
+                	<TextBlock><Run Text="May"/></TextBlock>
+                	<TextBlock><Run Text="June"/></TextBlock>
+                	<TextBlock><Run Text="July"/></TextBlock>
+                	<TextBlock><Run Text="August"/></TextBlock>
+                	<TextBlock><Run Text="September"/></TextBlock>
+                	<TextBlock><Run Text="October"/></TextBlock>
+                	<TextBlock><Run Text="November"/></TextBlock>
+                	<TextBlock><Run Text="December"/></TextBlock>
+                </ComboBox>
+					</StackPanel>
+                </Border>
+				<Border Canvas.ZIndex="-1" x:Name="Arrow_Holder" Margin="0,0,10,0" BorderThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1">
+					<!--<Border.Background>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="White"/>
+							<GradientStop Color="White" Offset="1"/>
+						</LinearGradientBrush>
+					</Border.Background>-->
+					<Canvas Margin="417,44,329,48" d:IsLocked="True">
+						<Path x:Name="path" Data="M7,133 L63,98 L53,118 L194,118 L194,108.64816 L225.85104,108.64816 L225.85104,127.3988 L225.85104,149 L53,149 L63,169 z" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" StrokeThickness="0.5" Height="68.224" Width="221.5" RenderTransformOrigin="0.5,0.5" Opacity="0" Canvas.Left="104.313" Canvas.Top="55.163">
+							<Path.RenderTransform>
+								<CompositeTransform/>
+							</Path.RenderTransform>
+							<Path.Fill>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#4e4e4e" Offset="1"/>
+                                    <GradientStop Color="#3c3c3c" Offset="0.407"/>
+								</LinearGradientBrush>
+							</Path.Fill>
+						</Path>
+                        <TextBlock x:Name="textBlock" TextWrapping="Wrap" TextAlignment="Center" Text="Click on pie to select a product" FontSize="14" Height="61.3266677856445" Width="250" d:LayoutOverrides="VerticalAlignment" Canvas.Left="98" Canvas.Top="80" Foreground="#8c8c8c" Opacity="0">
+						</TextBlock>
+					</Canvas>
+				</Border>
+				<vc:Chart x:Name="ChartProductWiseRevenue" VerticalAlignment="Stretch"
+                          Margin="7,0,0,0" Padding="8,0,4,4" MaxWidth="500" Width="452" 
+                          HorizontalAlignment="Left" Grid.Row="1">
+                    
+					<vc:Chart.Legends>
+						<vc:Legend x:Name="Legend1" HorizontalAlignment="Left" VerticalAlignment="Center" EntryMargin="7" CornerRadius="4"
+							Padding="6" ShadowEnabled="False"
+							Title="Products &amp; Revenue" TitleAlignmentX="Center" LightingEnabled="False" FontColor="#8c8c8c" TitleFontColor="#8c8c8c"/>
+					</vc:Chart.Legends>
+                    
+                    
+					<vc:Chart.Series>
+						<vc:DataSeries RenderAs="Pie" LabelEnabled="False" ShadowEnabled="true" PointerReleased="Pie_DataSeries_PointerReleased" PercentageFormatString="#0.00" YValueFormatString="'$'######.## "
+							LightingEnabled="True" LabelText=" #AxisXLabel" ShowInLegend="True" IncludePercentageInLegend="True" DataSource="{Binding ProductWiseRevenue}">
+                            <vc:DataSeries.DataMappings>
+                                <vc:DataMapping MemberName="AxisXLabel" Path="Product"/>
+                                <vc:DataMapping MemberName="YValue" Path="Amount"/>
+                                <vc:DataMapping MemberName="Exploded" Path="Exploded"/>
+                            </vc:DataSeries.DataMappings>
+                        </vc:DataSeries>
+					</vc:Chart.Series>
+				</vc:Chart>
+
+                <vg:Gauge Margin="0,0,8,50" ShadowEnabled="False" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Type="Circular" AnimationEnabled="true" Height="200" Width="200">
+
+                    <vg:Gauge.CircularScales>
+                        <vg:CircularScale Radius="0.75" StartAngle="130" SweepAngle="280" BorderThickness="2" ScaleThickness="0" Interval="20">
+                            <vg:CircularScale.MajorTicks>
+                                <vg:MajorTicks Placement="Inside" TickLength="0.2"/>
+                            </vg:CircularScale.MajorTicks>
+                            <vg:CircularScale.MinorTicks>
+                                <vg:MinorTicks Placement="Inside" TickLength="0.1"/>
+                            </vg:CircularScale.MinorTicks>
+                            <vg:CircularScale.ScaleLabels>
+                                <vg:ScaleLabels Placement="Inside" FontSize="12"/>
+                            </vg:CircularScale.ScaleLabels>
+                        </vg:CircularScale>
+                    </vg:Gauge.CircularScales>
+
+                    <vg:Gauge.Indicators>
+                        <vg:StateIndicator ToolTipText="{x:Null}" IndicatorWidth="0.5" IndicatorLength=".5" Position="0.60,1.24" IndicatorStyle="Text" Text="{Binding RevenueInPercentageOfSelectProductForDisplay}" FontWeight="Normal" FontSize="25">
+                        </vg:StateIndicator>
+                        <vg:NeedleIndicator DistanceFromScale="0.13" Value="{Binding RevenueInPercentageOfSelectProduct}" IndicatorWidth="0.02" BorderThickness="0.8" BorderBrush="Red" Background="Red" CapWidth="0.28" CapBackground="#4d4d4d"/>
+                    </vg:Gauge.Indicators>
+                </vg:Gauge>
+                
+                <Border Canvas.ZIndex="-1" Margin="0,-1,0,-2" Width="430" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" CornerRadius="2,0,0,2">
+			<!--<Border.Background>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#FFD7D7D7" Offset="1"/>
+					<GradientStop Color="White"/>
+					<GradientStop Color="#FFE3E3E3" Offset="0.457"/>
+					<GradientStop Color="#FFEDEDED" Offset="0.17"/>
+				</LinearGradientBrush>
+			</Border.Background>-->
+			<Border VerticalAlignment="Top" Height="24" Margin="0,8,0,0">
+                        <TextBlock Canvas.ZIndex="2" Margin="9,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Text="{Binding GaugeTitle}" FontSize="15" TextAlignment="Right" Foreground="#8c8c8c" >
+				</TextBlock>
+			</Border>
+                    
+
+                </Border>
+
+                <vg:Gauge Margin="0,20,240,0" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Type="Linear" Width="120" VerticalAlignment="Stretch">
+
+                    <vg:Gauge.LinearScales>
+                        <vg:LinearScale ScalingSet="1000000,M ;1000,B" ValueFormatString="'$'###0.##" BorderThickness="0" Maximum="{Binding MaxRevenueScale}">
+                            <vg:LinearScale.MajorTicks>
+                                <vg:MajorTicks Placement="Outside" TickLength="0.25" TickWidth="0.02"/>
+                            </vg:LinearScale.MajorTicks>
+                            <vg:LinearScale.MinorTicks>
+                                <vg:MinorTicks Placement="Outside" TickLength="0.125" TickWidth="0.02"/>
+                            </vg:LinearScale.MinorTicks>
+                            <vg:LinearScale.ScaleLabels>
+                                <vg:ScaleLabels Placement="Outside"/>
+                            </vg:LinearScale.ScaleLabels>
+                        </vg:LinearScale>
+                    </vg:Gauge.LinearScales>
+
+                    <vg:Gauge.Indicators>
+                        <vg:BarIndicator DistanceFromScale="0.05" Background="#FF0091FF" Value="{Binding RevenueOfSelectProduct}" ToolTipText="Revenue,\n#Value" Placement="Center" BorderThickness="0" LabelStyle="Outside" BorderBrush="#FF995050">
+                            <!--<vg:BarIndicator.Background>
+                                <LinearGradientBrush EndPoint="1.005,0.5" StartPoint="-0.005,0.5">
+                                    <GradientStop Color="#FF0091FF"/>
+                                    <GradientStop Color="#FF17598B" Offset="0.969"/>
+                                    <GradientStop Color="#FFCBE9FF" Offset="0.199"/>
+                                </LinearGradientBrush>
+                            </vg:BarIndicator.Background>-->
+                        </vg:BarIndicator>
+                        <vg:MarkerIndicator Value="{Binding TotalRevenueOfAllProduct}" ToolTipText="Total Revenue\nfor all Products, #Value" ValueFormatString="'$'###########.##" LabelEnabled="True" LabelText=" Total Revenue\n for all Products" Placement="Inside" BorderThickness="0" Background="Red" DistanceFromScale="-0.16"/>
+                    </vg:Gauge.Indicators>
+
+                </vg:Gauge>
+
+            </Grid>
+        
+		<Grid Margin="0,-4,0,0" Grid.Row="1" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="26"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+                
+                <Border Grid.Row="0" Height="24" Width="250" HorizontalAlignment="Left">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="#3a3a3a" Offset="0"/>
+                            <GradientStop Color="#151515" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="Sales in Volumes" Foreground="#8c8c8c" VerticalAlignment="Center" Margin="14,0,0,0" FontSize="15">
+					</TextBlock>
+                </Border>
+                
+                <Grid Grid.Row="1" >
+                	<!--<Grid.Background>
+                		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					        <GradientStop Color="#FFDFDFDF" Offset="1"/>
+					        <GradientStop Color="White" Offset="0.5"/>
+				        </LinearGradientBrush>
+                	</Grid.Background>-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.304*"/>
+						<ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="0.319*"/>
+						<ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="0.377*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="8,6,0,6" >
+                        <vc:Chart x:Name="ChartConversionRatio" ShadowEnabled="false" CornerRadius="2"
+                                   View3D="true">
+
+                            <vc:Chart.Titles>
+                                <vc:Title Text="{Binding ConversionRatioChartTitle}" HorizontalAlignment="Left" TextAlignment="Left" FontColor="#8c8c8c"/>
+                            </vc:Chart.Titles>
+
+                            <vc:Chart.Series>
+                                <vc:DataSeries RenderAs="StreamLineFunnel" LabelFontColor="#8c8c8c" Exploded="True" ShowInLegend="False" LabelText="#AxisXLabel: #Percentage%" ToolTipText="#AxisXLabel: #YValue (#Percentage%)" DataSource="{Binding ConversionRatio}">
+                                    <vc:DataSeries.DataMappings>
+                                        <vc:DataMapping MemberName="AxisXLabel" Path="ProcessFlow"/>
+                                        <vc:DataMapping MemberName="YValue" Path="ProcessFlowData"/>
+                                    </vc:DataSeries.DataMappings>
+
+                                </vc:DataSeries>
+                            </vc:Chart.Series>
+                        </vc:Chart>
+                    </Grid>
+					<Grid Grid.Column="1">
+                        <Rectangle VerticalAlignment="Stretch" Width="1"/>
+                    </Grid>
+					<Grid Grid.Column="3">
+                        <Rectangle VerticalAlignment="Stretch" Width="1"/>
+                    </Grid>
+					
+                    <Grid Margin="0,6,0,6" Grid.Column="2">
+                        <vc:Chart x:Name="ChartLicensesSold" View3D="False" CornerRadius="2">
+
+                            <vc:Chart.Titles>
+                                <vc:Title Text="{Binding LicensesSoldChartTitle}" HorizontalAlignment="Left" Padding="0,0,0,4" TextAlignment="Left" FontColor="#8c8c8c"/>
+                            </vc:Chart.Titles>
+
+                            <vc:Chart.Legends>
+                                <vc:Legend VerticalAlignment="Top" MaxWidth="200" HorizontalAlignment="Left" Background="Transparent" ShadowEnabled="false" BorderThickness="0" EntryMargin="4" CornerRadius="7" Padding="2" FontColor="#8c8c8c" />
+                            </vc:Chart.Legends>
+
+                            <vc:Chart.AxesX>
+                                <vc:Axis LineThickness="0">
+                                    <vc:Axis.AxisLabels>
+                                        <vc:AxisLabels TextAlignment="Center" Angle="0" FontColor="#8c8c8c"/>
+                                    </vc:Axis.AxisLabels>
+									<vc:Axis.Ticks>
+                                		<vc:Ticks TickLength="5" LineStyle="Dashed" LineThickness="0.24" ></vc:Ticks>                    	
+                                		<vc:Ticks TickLength="6" LineStyle="Dashed" LineThickness="0.24" ></vc:Ticks>                    	
+									</vc:Axis.Ticks>
+                                </vc:Axis>
+                            </vc:Chart.AxesX>
+							
+							<vc:Chart.AxesY>
+                                <vc:Axis LineThickness="0.5">
+	                                <vc:Axis.Ticks>
+                                		<vc:Ticks TickLength="7" LineThickness="0.24"></vc:Ticks>                    	
+									</vc:Axis.Ticks>
+									
+									<vc:Axis.AxisLabels>
+                                        <vc:AxisLabels FontColor="#8c8c8c"/>
+                                    </vc:Axis.AxisLabels>
+                                </vc:Axis>
+                            </vc:Chart.AxesY>
+								
+                            <vc:Chart.Series>
+                                <vc:DataSeries RenderAs="Column" LegendText="License With Support" DataSource="{Binding LicensesSoldWithSupport}" >
+                                    <vc:DataSeries.DataMappings>
+                                        <vc:DataMapping MemberName="AxisXLabel" Path="LicenseType"/>
+                                        <vc:DataMapping MemberName="YValue" Path="TotalCount"/>
+                                    </vc:DataSeries.DataMappings>
+                                </vc:DataSeries>
+
+                                <vc:DataSeries RenderAs="Column" LegendText="License Without Support" DataSource="{Binding LicensesSoldWithoutSupport}" >
+                                    <vc:DataSeries.DataMappings>
+                                        <vc:DataMapping MemberName="AxisXLabel" Path="LicenseType"/>
+                                        <vc:DataMapping MemberName="YValue" Path="TotalCount"/>
+                                    </vc:DataSeries.DataMappings>
+                                </vc:DataSeries>
+
+                            </vc:Chart.Series>
+                        </vc:Chart>
+                    </Grid>
+                    <Grid Grid.Column="4" Margin="0,6,6,6" >
+                        <vc:Chart x:Name="ChartUpgradeOrNew" CornerRadius="2" ScrollingEnabled="false" IndicatorEnabled="True"
+                                  >
+
+                            <vc:Chart.Titles>
+                                <vc:Title Text="{Binding ChartUpgradeOrNewTitle}" HorizontalAlignment="Left" TextAlignment="Left" FontColor="#8c8c8c"/>
+                            </vc:Chart.Titles>
+
+                            <vc:Chart.Legends>
+                                <vc:Legend HorizontalAlignment="Left" VerticalAlignment="Top" 
+								  MaxWidth="220" BorderThickness="0" LightingEnabled="False"
+								  Background="Transparent" FontColor="#8c8c8c"/>
+                            </vc:Chart.Legends>
+
+                            <vc:Chart.AxesX>
+                                <vc:Axis ValueFormatString="dd-MMM">
+									<vc:Axis.Ticks>
+                                		<vc:Ticks TickLength="5" LineStyle="Dashed" LineThickness="0.24" ></vc:Ticks>                    	
+                                		<vc:Ticks TickLength="1" LineStyle="Dashed" LineThickness="0.24" ></vc:Ticks>                    	
+									</vc:Axis.Ticks>
+                                </vc:Axis>
+                            </vc:Chart.AxesX>
+							<vc:Chart.AxesY>
+                                <vc:Axis LineThickness="0">								
+                                	<vc:Axis.Ticks>     	
+                                		<vc:Ticks TickLength="7" LineStyle="Dashed" LineThickness="0.24" ></vc:Ticks>                    	             	
+									</vc:Axis.Ticks>
+                                </vc:Axis>
+                            </vc:Chart.AxesY>
+                            <vc:Chart.Series>
+                                <vc:DataSeries RenderAs="Line" LegendText="Number of New Licenses Sold" XValueType="Date" DataSource="{Binding NewLicensesSold}" XValueFormatString="dd-MMM-yyyy" >
+                                    <vc:DataSeries.DataMappings>
+                                        <vc:DataMapping MemberName="XValue" Path="Date"/>
+                                        <vc:DataMapping MemberName="YValue" Path="TotalCount"/>
+                                    </vc:DataSeries.DataMappings>
+                                </vc:DataSeries>
+                                <vc:DataSeries RenderAs="Line" LegendText="Number of Upgrades" XValueType="Date" LightingEnabled="false" DataSource="{Binding OldLicensesUpgraded}" XValueFormatString="dd-MMM-yyyy" >
+                                    <vc:DataSeries.DataMappings>
+                                        <vc:DataMapping MemberName="XValue" Path="Date"/>
+                                        <vc:DataMapping MemberName="YValue" Path="TotalCount"/>
+                                    </vc:DataSeries.DataMappings>
+                                </vc:DataSeries>
+                            </vc:Chart.Series>
+                        </vc:Chart>
+                    </Grid>
+                </Grid>
+			</Grid>
+		</Grid>
+	</Grid>
+</Page>
